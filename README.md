@@ -1,24 +1,58 @@
 # README
+#DB設計
+## users table
+|Column               | Type        | Options       |
+|---------------------|-------------|---------------|
+|nickname             |string       |null:false     |
+|email                |string       |null:false,unique:true|
+|encrypted_password   |string       |null:false     |
+|first_name           |string       |null:false     |
+|first_name_kana      |string       |null:false     |
+|last_name            |string       |null:false     |
+|last_name_kana       |string       |null:false     |
+|birth_day            |date         |null:false     |
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### Association
+* has_many :orders
+* has_many :items
 
-Things you may want to cover:
+## addresses table
+|Column               |Type         |Options                    |
+|---------------------|-------------|---------------------------|
+|post_code            |string       |null:false                 |
+|prefecture_id        |integer      |null:false                 |
+|city                 |string       |null:false                 |
+|address              |string       |null:false                 |
+|building_name        |string       |                           |
+|phone_number         |string       |null:false                 |
+|order                |references   |null:false,foreign_key:true|
+### Association
+* belongs_to :order
 
-* Ruby version
+## orders table
 
-* System dependencies
+|Column               |Type         |Options                    |
+|---------------------|-------------|---------------------------|
+|user                 |references   |null:false,foreign_key:true|
+|item                 |references   |null:false,foreign_key:true|
 
-* Configuration
+### Association
+* belongs_to :user
+* belongs_to :item
+* has_one :address
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## item table
+|Column               |Type         |Options                    |
+|---------------------|-------------|---------------------------|
+|product              |string       |null:false                 |
+|price                |integer      |null:false                 |
+|description          |text         |null:false                 |
+|status_id            |integer      |null:false                 |
+|shipping_cost_id     |integer      |null:false                 |
+|shipping_days_id     |integer      |null:false                 |
+|prefecture_id        |integer      |null:false                 |
+|category_id          |integer      |null:false                 |
+|user                 |references   |null:false,foreign_key:true|
+### Association
+* belongs_to :user
+* has_one :order
