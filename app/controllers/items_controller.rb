@@ -2,5 +2,8 @@ class ItemsController < ApplicationController
 def new
   @item = Item.new
 end
-end
 
+def index
+  @user = User.new
+end
+end
