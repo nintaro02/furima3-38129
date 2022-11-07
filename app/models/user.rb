@@ -10,6 +10,6 @@ validates :first_name_kana, presence: true,  format: { with: /\A[ァ-ヶー－]+
 validates :last_name, presence: true,        format: { with: /\A[ぁ-んァ-ヶ一-龥々ー]+\z/ } 
 validates :last_name_kana, presence: true,   format: { with: /\A[ァ-ヶー－]+\z/ } 
 validates :birth_day, presence: true
-VALID_PASSWORD_REGEX = /\A[a-z0-9]+\z/i
-validates :password, presence:true,format: { with: VALID_PASSWORD_REGEX }
+
+validates :password, presence:true,format: { with: /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i }
 end
