@@ -4,18 +4,18 @@ RSpec.describe Item, type: :model do
     @item = FactoryBot.build(:item)
   end
 
-    describe '商品出品機能' do
-      context '出品できる時' do
-        it '全ての項目が入力されていれば出品できる' do
-          expect(@item).to be_valid
-        end
+  describe '商品出品機能' do
+    context '出品できる時' do
+      it '全ての項目が入力されていれば出品できる' do
+        expect(@item).to be_valid
       end
-      context '出品できない時' do
+    end
+    context '出品できない時' do
       it '商品画像が空だと出品できない' do
         @item.image = nil
         @item.valid?
         expect(@item.errors.full_messages).to include("Image can't be blank")
-        end
+      end
       it '商品名が空だと出品できない' do
         @item.product = ''
         @item.valid?
@@ -65,12 +65,17 @@ RSpec.describe Item, type: :model do
         @item.price = '100'
         @item.valid?
         expect(@item.errors.full_messages).to include('Price Out of setting range')
+      end
+      it '10000000以上の値では保存できないこと' do
+        @item.price = '20000000'
+        @item.valid?
+        expect(@item.errors.full_messages).to include('Price Out of setting range')
+      end
+      it 'userが空だと登録できない' do
+        @item.user = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include("User can't be blank")
+      end
     end
-    it '10000000以上の値では保存できないこと' do
-      @item.price = '20000000'
-      @item.valid?
-      expect(@item.errors.full_messages).to include('Price Out of setting range')
   end
-end
-end
 end
