@@ -62,3 +62,9 @@ gem 'pry-rails'
 gem 'devise'
 
 gem 'active_hash'
+
+gem 'payjp'
+
+group :production do
+  gem 'pg'
+  end
